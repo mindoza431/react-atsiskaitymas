@@ -1,0 +1,12 @@
+Paleidimo komandos:
+json-server --watch db.json --port 3001
+npm run dev
+
+Turime pagrindinį puslapį, kuriame matome kategorijas/specialius pasiulymūs su nuolaida.
+Norimą produktą galime pridėti į krepšelį.
+Paspaudus "Plačiau", matome informaciją apie produktą, kiek vnt liko sandelyje.
+Krepšelio skiltyje matome užsakymo suvestinę, kiek vienetų prekių pridėjome ir kurioms prekėms buvo pritaikyta nuolaida.
+Norint baigti užsakymą turime prisijungti.
+Bandomasis prisijungimas: jonas@example.com - password. admin@example.com - password. Prisijungę su admin navbare matome ir užsitregistravusius vartotojus. Ten juos galime ištrinti, redaguoti.
+Prisijunge galime peržiūrėti užsakymus. Matome kadaa buvo užsakyta, koks užsakymo statutas.
+Prie veiksmų turime mygtuką "Peržiūrėti", čia matome kliento info, pristatymo adresą.
