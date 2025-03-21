@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Paper,
@@ -10,15 +10,24 @@ import {
   Link,
   CircularProgress
 } from '@mui/material';
-import { UserContext } from '../context/UserContext';
+import { useUser } from '../context/UserContext';
+
+interface LocationState {
+  from?: string;
+}
+
+interface FormData {
+  email: string;
+  password: string;
+}
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { login, fetchUsers, currentUser, users } = useContext(UserContext);
+  const { login, fetchUsers, currentUser, users } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     email: '',
     password: ''
   });
@@ -42,14 +51,14 @@ const Login = () => {
     if (currentUser && !redirecting) {
       console.log('Login - useEffect - currentUser - nukreipiama į pagrindinį puslapį');
       setRedirecting(true);
-      const redirectTo = location.state?.from || '/';
+      const redirectTo = (location.state as LocationState)?.from || '/';
       setTimeout(() => {
         navigate(redirectTo, { replace: true });
       }, 100);
     }
   }, [currentUser, navigate, location, redirecting]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -57,7 +66,7 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
@@ -72,8 +81,8 @@ const Login = () => {
 
     try {
       console.log('Login - handleSubmit - bandoma prisijungti');
-      const user = await login(formData);
-      console.log('Login - handleSubmit - prisijungta sėkmingai:', user);
+      await login(formData.email, formData.password);
+      console.log('Login - handleSubmit - prisijungta sėkmingai');
       setRedirecting(true);
     } catch (error) {
       console.error('Login - handleSubmit - prisijungimo klaida:', error);

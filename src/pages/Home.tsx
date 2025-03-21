@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Typography,
@@ -7,14 +7,13 @@ import {
   CardContent,
   CardMedia,
   Button,
-  Box,
-  Container
+  Box
 } from '@mui/material';
-import { ProductContext } from '../context/ProductContext';
+import { useProduct } from '../context/ProductContext';
 
 const Home = () => {
   const navigate = useNavigate();
-  const { products, loading, error, fetchProducts } = useContext(ProductContext);
+  const { products, loading, error, fetchProducts } = useProduct();
 
   useEffect(() => {
     fetchProducts();
@@ -26,8 +25,7 @@ const Home = () => {
   if (error) return <Typography color="error">{error}</Typography>;
 
   return (
-    <Container>
-      {/* hero dalis */}
+    <Box sx={{ width: '100%' }}>
       <Box
         sx={{
           position: 'relative',
@@ -94,13 +92,12 @@ const Home = () => {
         </Button>
       </Box>
 
-      {/* nauji prod */}
       <Typography variant="h4" gutterBottom sx={{ mb: 4 }}>
         Naujausi Produktai
       </Typography>
       <Grid container spacing={4}>
-        {featuredProducts.map(product => (
-          <Grid item xs={12} sm={6} md={3} key={product.id}>
+        {featuredProducts.map((product, index) => (
+          <Grid item xs={12} sm={6} md={3} key={`featured-${product.id}-${index}`}>
             <Card 
               className="card"
               onClick={() => navigate(`/products/${product.id}`)}
@@ -128,7 +125,6 @@ const Home = () => {
         ))}
       </Grid>
 
-      {/* kategorijos */}
       <Box sx={{ mt: 8 }}>
         <Typography variant="h4" gutterBottom sx={{ mb: 4 }}>
           Kategorijos
@@ -154,7 +150,6 @@ const Home = () => {
         </Grid>
       </Box>
 
-      {/* akcijos */}
       <Box
         sx={{
           mt: 8,
@@ -177,8 +172,8 @@ const Home = () => {
         <Grid container spacing={4}>
           {products
             .filter(product => product.discount === 20)
-            .map(product => (
-              <Grid item xs={12} sm={6} md={4} key={product.id}>
+            .map((product, index) => (
+              <Grid item xs={12} sm={6} md={4} key={`discount-${product.id}-${index}-${product.name}`}>
                 <Card 
                   className="card"
                   onClick={() => navigate(`/products/${product.id}`)}
@@ -250,18 +245,13 @@ const Home = () => {
             mt: 4,
             px: 4,
             py: 1.5,
-            fontSize: '1.1rem',
-            fontWeight: 'bold',
-            '&:hover': {
-              transform: 'translateY(-2px)',
-              boxShadow: '0 6px 8px rgba(0,0,0,0.3)'
-            }
+            fontSize: '1.1rem'
           }}
         >
-          Peržiūrėti Visas Prekes
+          Peržiūrėti visus pasiūlymus
         </Button>
       </Box>
-    </Container>
+    </Box>
   );
 };
 
