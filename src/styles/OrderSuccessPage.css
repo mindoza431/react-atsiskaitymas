@@ -1,0 +1,52 @@
+.order-success-page {
+  padding: 4rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.success-icon {
+  font-size: 5rem;
+  color: #28a745;
+  margin-bottom: 1.5rem;
+}
+
+.order-success-page h1 {
+  margin-bottom: 1.5rem;
+  color: #343a40;
+}
+
+.order-next-steps {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-top: 3rem;
+}
+
+.order-details-section {
+  background-color: #e9ecef;
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.action-buttons {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 576px) {
+  .order-success-page {
+    padding: 2rem 1rem;
+  }
+  
+  .success-icon {
+    font-size: 4rem;
+  }
+  
+  .action-buttons .btn {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  
+  .action-buttons .btn:first-child {
+    margin-right: 0 !important;
+  }
+} 
